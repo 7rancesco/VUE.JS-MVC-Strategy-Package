@@ -26,6 +26,5 @@
     <div>
         <label for="">{{ field.label }}</label>
         <input type="number" v-model="value">
-        *for {{ field.propertyName }}
     </div>
 </template>

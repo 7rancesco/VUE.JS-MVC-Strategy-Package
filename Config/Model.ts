@@ -9,6 +9,12 @@ export const Model : Models = {
         "age" : {
             type : "number"
         },
-        "retribution" : {}
+        "retribution" : {
+            type : "select",
+            options : [
+                {value : 'month', label : 'Mensile' },
+                {value : 'year', label : 'Annuale' }
+            ]
+        }
     },
 }

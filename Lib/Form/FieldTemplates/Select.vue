@@ -4,7 +4,7 @@
     const emits = defineEmits(['setData'])
 
     const data = ref<Property>(props.field);
-    const value = ref<string>();
+    const value = ref< number | string >();
 
     function setData(){
         data.value.value = value.value;
@@ -25,6 +25,8 @@
 <template>
     <div>
         <label for="">{{ field.label }}</label>
-        <input type="text" v-model="value">
+        <select name="" id="" v-model="value">
+            <option v-for=" option in field.options " :value="option.value">{{ option.label }}</option>
+        </select>
     </div>
 </template>

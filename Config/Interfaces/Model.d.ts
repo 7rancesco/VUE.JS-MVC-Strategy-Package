@@ -2,7 +2,8 @@ interface Property {
     propertyName? : string,
     type? : string,
     label? : string,
-    value? : any
+    value? : any,
+    options? : { value : string | number, label : string }[]
 }
 
 

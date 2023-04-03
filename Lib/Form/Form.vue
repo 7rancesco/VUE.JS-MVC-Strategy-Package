@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import Text from './FieldTemplates/Text.vue';
     import Number from './FieldTemplates/Number.vue';
+    import Select from './FieldTemplates/Select.vue';
 
     const props = defineProps(['model'])
 
@@ -23,6 +24,12 @@
 
         <Number 
             v-else-if="field['type'] === 'number'" 
+            :field="field" 
+            @set-data="setData" 
+        />
+
+        <Select 
+            v-else-if="field['type'] === 'select'" 
             :field="field" 
             @set-data="setData" 
         />
