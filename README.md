@@ -39,3 +39,23 @@ export const Model : Models = {
 
     //etc...
 }
+
+For adding a specific input type add { type : 'form-element-name'}, for example: 
+
+    "Teacher" : {
+        "fullName" : {
+            type : "text"
+        },
+        "age" : {
+            type : "number"
+        },
+        "teaching" : {
+            type : "select",
+            options : [
+                {value : "Music", label: "Music theory"},
+                {value : "Science", label: "Science education"}
+            ]
+        }
+    }
+
+By default each property is text type.
