@@ -1,6 +1,6 @@
-# VUE-MVC-Strategy
+# VUE MVC Strategy
 
-VUE.js package for creating an MVC architecture using a pattern strategy library for Front End
+VUE.js package for creating an MVC Front-End architecture using a strategy patterns library
 
 
 ## System Requirements
