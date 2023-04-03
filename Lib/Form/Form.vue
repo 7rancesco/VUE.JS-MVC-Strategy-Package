@@ -1,5 +1,7 @@
 <script setup lang="ts">
     import Text from './FieldTemplates/Text.vue';
+    import Number from './FieldTemplates/Number.vue';
+
     const props = defineProps(['model'])
 
     const emits = defineEmits(['setData']);
@@ -15,6 +17,12 @@
 
         <Text 
             v-if="field['type'] === 'text'" 
+            :field="field" 
+            @set-data="setData"
+        />
+
+        <Number 
+            v-else-if="field['type'] === 'number'" 
             :field="field" 
             @set-data="setData" 
         />

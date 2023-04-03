@@ -4,12 +4,11 @@ export const Model : Models = {
         "surname" : {}
     },
     "Teacher" : {
-        "teaching" : {
-            "type" : 'number'
-        },
         "name" : {},
         "surname" : {},
-        "age" : {},
+        "age" : {
+            type : "number"
+        },
         "retribution" : {}
     },
 }
