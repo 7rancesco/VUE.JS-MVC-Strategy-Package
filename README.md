@@ -5,19 +5,37 @@ VUE.js package for creating an MVC Front-End architecture using a strategy patte
 
 ## System Requirements
 
-- Vue.js version 3.0 (TypeScript)
-- Bootstrap 5.3
+- Vue.js version 3.0 
+- TypeScript extension ( Required )
+- Bootstrap 5.3 ( Optional )
 
 
-## Setting
+## Install
 
-- Go to the src folder in your Vue project and clone the MVCS package
-- import Navigator from './MVCS/Navigator.vue' in App.ts
+- cd YourVueProjectName/src
+- git clone https://github.com/7rancesco/VUE.JS-MVC-Strategy-Package.git MVCS
+
+Then add "import Navigator from './MVCS/Navigator.vue'" and add Navigator/> inside the template in App.ts file. This generate the view of model components automatically.
 
 
-## Configuration
+## Configurations
 
 
 ### Model Configuration
 
-- Define your models in MVCS/Config/Model.ts
+Define your models in MVCS/Config/Model.ts, for example: 
+export const Model : Models = {
+
+    "Student" : {
+        "name" : {},
+        "surname" : {}
+    },
+
+    "Teacher" : {
+        "name" : {},
+        "surname" : {},
+        "age" : {}
+    }
+
+    //etc...
+}
