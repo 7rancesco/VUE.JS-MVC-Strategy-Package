@@ -15,6 +15,12 @@ export const Model : Models = {
                 {value : 'month', label : 'Mensile' },
                 {value : 'year', label : 'Annuale' }
             ]
+        },
+        "students" : {
+            type : "choice",
+            entity : "Student",
+            to_String : ['surname', 'name'],
+            multiple : true
         }
     },
 }

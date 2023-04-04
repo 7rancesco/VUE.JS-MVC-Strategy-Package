@@ -3,7 +3,10 @@ interface Property {
     type? : string,
     label? : string,
     value? : any,
-    options? : { value : string | number, label : string }[]
+    options? : { value : string | number, label : string }[],
+    entity? : string,
+    to_String? : string[],
+    multiple? : boolean
 }
 
 

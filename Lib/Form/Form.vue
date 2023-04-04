@@ -29,7 +29,7 @@
         />
 
         <Select 
-            v-else-if="field['type'] === 'select'" 
+            v-else-if="field['type'] === 'select' || field['type'] === 'choice'" 
             :field="field" 
             @set-data="setData" 
         />

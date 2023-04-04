@@ -5,6 +5,7 @@
 
     const data = ref<Property>(props.field);
     const value = ref< number | string >();
+    const values = ref< number[] | string[] >();
 
     function setData(){
         data.value.value = value.value;
@@ -20,12 +21,32 @@
         value.value = props.field['value']
     })
 
+
+    function setMultipleData(){
+        data.value.value = values.value;
+        emits('setData', data.value)
+    }
+
+    watch(
+        () => values.value,
+        () => setMultipleData()
+    )
+
+    onMounted(() => {
+        values.value = props.field['value']
+    })    
+
 </script>
 
 <template>
     <div>
         <label for="">{{ field.label }}</label>
-        <select name="" id="" v-model="value">
+        
+        <select v-if="field.multiple" multiple="true" name="" id="" v-model="values">
+            <option v-for=" option in field.options " :value="option.value">{{ option.label }}</option>
+        </select>
+
+        <select v-else name="" id="" v-model="value">
             <option v-for=" option in field.options " :value="option.value">{{ option.label }}</option>
         </select>
     </div>
