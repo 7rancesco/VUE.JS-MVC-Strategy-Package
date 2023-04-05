@@ -47,6 +47,10 @@ export const ModelStrategy = ( model : Model ) => {
                 if(model[key]['multiple']){
                     property['multiple'] = true;
                 }
+
+                if(model[key]['search']){
+                    property['search'] = true;
+                }
             }
             
         }

@@ -11,12 +11,7 @@ VUE.js package for creating an MVC Front-End architecture using a strategy patte
 
 
 ## Install
-
-- cd YourVueProjectName/src
-- git clone https://github.com/7rancesco/VUE.JS-MVC-Strategy-Package.git MVCS
-
-Then add "import Navigator from './MVCS/Navigator.vue'" and add Navigator/> inside the template in App.ts file. This generate the view of model components automatically.
-
+- npm install @francescocrupi/MVCS
 
 ## Configurations
 
@@ -24,7 +19,6 @@ Then add "import Navigator from './MVCS/Navigator.vue'" and add Navigator/> insi
 ### Model Configuration
 
 Define your models in MVCS/Config/Model.ts, for example: 
-export const Model : Models = {
 
     "Student" : {
         "name" : {},
@@ -38,9 +32,8 @@ export const Model : Models = {
     }
 
     //etc...
-}
 
-For adding a specific input type add { type : 'form-element-name'}, for example: 
+For setting a specific input type add { type : 'form-element-name'}, for example: 
 
     "Teacher" : {
         "fullName" : {
@@ -59,3 +52,21 @@ For adding a specific input type add { type : 'form-element-name'}, for example:
     }
 
 By default each property is text type.
+
+### Types
+
+- type Select
+
+    type : "select",
+    options : [
+        {value : 1, label: "One"},
+        {value : 2, label: "Two"}
+    ]
+
+- type Choice
+
+    type : "choice",
+    entity : "Entity name",
+    to_String : ['surname', 'name'],
+    multiple : true, // default false
+    search : true // default false

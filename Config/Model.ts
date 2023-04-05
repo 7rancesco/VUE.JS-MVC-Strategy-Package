@@ -20,7 +20,8 @@ export const Model : Models = {
             type : "choice",
             entity : "Student",
             to_String : ['surname', 'name'],
-            multiple : true
+            multiple : true,
+            search : true
         }
     },
 }

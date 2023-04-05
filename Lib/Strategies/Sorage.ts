@@ -15,7 +15,7 @@ export const Storage = ( entity : string ) => {
             datas.forEach(element => {
                 const property = element['propertyName'];
                 const value = element['value'];
-                data[ property as string ] = value;
+                data[ property as unknown as string ] = value;
             });
             updateStorage(entity, storage)
         },

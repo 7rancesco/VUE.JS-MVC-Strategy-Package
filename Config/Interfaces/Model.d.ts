@@ -6,7 +6,8 @@ interface Property {
     options? : { value : string | number, label : string }[],
     entity? : string,
     to_String? : string[],
-    multiple? : boolean
+    multiple? : boolean,
+    search? : boolean
 }
 
 
