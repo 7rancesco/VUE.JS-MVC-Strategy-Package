@@ -77,9 +77,12 @@
         alert('See the console')
     }
 
-    const collectionIndex = ref<number>(1);
+    const collectionIndex = ref<number>(0);
     function collectionInc(){
         collectionIndex.value++;
+    }
+    function collectionDec(){
+        collectionIndex.value--;
     }
 
     const addItemStatus = ref<boolean>(false);
@@ -90,13 +93,15 @@
     <div>
 
         <div v-if="field.collection">
-            Collection of {{ field.label }}
-            <Form 
-                v-for="i in collectionIndex"
-                :model="field.relation"
-                @set-data="setRelationData(field.relation)"
-            />
-            <button type="button" @click="collectionInc">Add another {{ field.label }}</button>
+            Collection of {{ field.label }} <br>
+            <div v-for="i in collectionIndex">
+                {{ i }}° - {{ field.label }} <button type="button" @click="collectionDec">x</button>
+                <Form 
+                    :model="field.relation"
+                    @set-data="setRelationData(field.relation)"
+                />
+            </div>
+            <button type="button" @click="collectionInc">Add {{ field.label }}</button>
         </div>
         
         <div v-else>

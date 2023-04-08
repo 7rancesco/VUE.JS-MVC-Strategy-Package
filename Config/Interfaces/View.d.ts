@@ -1,5 +1,7 @@
 interface View {
-    indexTemplate : string
+    indexTemplate? : string,
+    hideNavigation? : boolean,
+    group? : string
 }
 
 interface Views {
