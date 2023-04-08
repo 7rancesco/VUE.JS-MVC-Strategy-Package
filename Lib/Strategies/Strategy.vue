@@ -8,7 +8,9 @@
 
     const props = defineProps(['schema']);
 
-    const showProfiler = ref(false);
+    /**+++++++++++++++++++++++++++++++**/
+    const showProfiler = ref(false); /**/
+    /**+++++++++++++++++++++++++++++**/
 
     const model = ref<Model[]>();
     const view = ref<View>();
@@ -22,7 +24,7 @@
     )
 
     function setSchema(){
-        model.value = ModelStrategy( props.schema.model );
+        model.value = ModelStrategy( props.schema );
         view.value = ViewStrategy( props.schema.view );
         controller.value = ControllerStrategy( props.schema.controller );
         storage.value = Storage( props.schema.name ).getDatas();
@@ -33,8 +35,8 @@
         setSchema()
     })
 
-    function setData( data : Property ){
-        model.value?.map( e => {
+    function setData( data : Data ){
+        model.value?.map( ( e : Data ) => {
             if( e.propertyName === data.propertyName ){
                 return e.value = data.value
             }

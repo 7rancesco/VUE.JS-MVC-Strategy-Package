@@ -1,6 +1,7 @@
 interface Schema {
     name : string,
-    model : object,
+    model : Model,
     view : object,
-    controller : object
+    controller : object,
+    allModels? : Models
 }

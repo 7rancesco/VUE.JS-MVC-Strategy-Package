@@ -30,7 +30,8 @@
                 name : current.value,
                 model : Model[ current.value ],
                 view : View[ current.value ],
-                controller : Controller[ current.value ]
+                controller : Controller[ current.value ],
+                allModels : Model
             };
 
         }

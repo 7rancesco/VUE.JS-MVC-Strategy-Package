@@ -11,7 +11,7 @@ VUE.js package for creating an MVC Front-End architecture using a strategy patte
 
 
 ## Install
-- npm install @francescocrupi/MVCS
+//...
 
 ## Configurations
 
@@ -55,7 +55,7 @@ By default each property is text type.
 
 ### Types
 
-- type Select
+- Select
 
     type : "select",
     options : [
@@ -63,10 +63,16 @@ By default each property is text type.
         {value : 2, label: "Two"}
     ]
 
-- type Choice
+- Choice
 
     type : "choice",
-    entity : "Entity name",
+    entity : "Entity Name",
     to_String : ['surname', 'name'],
     multiple : true, // default false
     search : true // default false
+    buttonAdd : true // default false
+
+- Collection
+    type : "choice",
+    entity : "Entity Name",
+    collection : true,

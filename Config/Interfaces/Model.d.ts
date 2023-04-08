@@ -7,7 +7,9 @@ interface Property {
     entity? : string,
     to_String? : string[],
     multiple? : boolean,
-    search? : boolean
+    search? : boolean,
+    buttonAdd? : boolean,
+    collection? : boolean
 }
 
 

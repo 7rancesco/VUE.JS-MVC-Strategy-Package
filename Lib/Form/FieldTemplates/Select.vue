@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { watch, ref, onMounted, computed } from 'vue';
     import { getSearch } from '@francescocrupi/search-ts';
+    import Form from '../Form.vue';
 
     const props = defineProps(['field'])
     const emits = defineEmits(['setData'])
@@ -42,14 +43,12 @@
     })  
     
     const searchText = ref <string>('');
-
-    const filteredOptions = computed<{value: any, label : string}[] | void>(() => {
-        const filtered = getSearch(
+    const filteredOptions = computed<{value: any, label : string}[] >(() => {
+        return getSearch(
             searchText.value,
             props.field.options,
             ['label']
-        );
-        return filtered
+        ) as any
     })
 
     function removeSelected(value : any){
@@ -63,23 +62,76 @@
         return values.value = newValues
     }
 
+    function getLabel(value : number | string) {
+        const label = props.field.options.find((e : any) => e.value === value);
+        return label.label
+    }
+
+    const newRelation = ref<Model>();
+    function setRelationData(data : Model){
+        newRelation.value = data;
+    }
+
+    function persistNewRelation(){
+        console.log(newRelation.value)
+        alert('See the console')
+    }
+
+    const collectionIndex = ref<number>(1);
+    function collectionInc(){
+        collectionIndex.value++;
+    }
+
+    const addItemStatus = ref<boolean>(false);
+
 </script>
 
 <template>
     <div>
-        <label for="">{{ field.label }}</label>
 
-        <div v-if="field.search">
-            <input type="text" v-model="searchText" placeholder="search...">
-            <button type="button" v-for="selected in values" @click="removeSelected(selected)">{{ selected }} [x]</button>
+        <div v-if="field.collection">
+            Collection of {{ field.label }}
+            <Form 
+                v-for="i in collectionIndex"
+                :model="field.relation"
+                @set-data="setRelationData(field.relation)"
+            />
+            <button type="button" @click="collectionInc">Add another {{ field.label }}</button>
         </div>
         
-        <select v-if="field.multiple && values !== undefined" v-model="values" multiple>
-            <option v-for=" option in filteredOptions " :value="option.value">{{ option.label }}</option>
-        </select>
+        <div v-else>
+        
+            <label for="">{{ field.label }}</label>
 
-        <select v-else name="" id="" v-model="value">
-            <option v-for=" option in field.options " :value="option.value">{{ option.label }}</option>
-        </select>
+            <div v-if="field.search">
+                <input type="text" v-model="searchText" placeholder="search...">
+                <button type="button" v-for="selected in values" @click="removeSelected(selected)">{{ getLabel(selected) }} [x]</button>
+            </div>
+            
+            <select v-if="field.multiple && values !== undefined" v-model="values" multiple>
+                <option v-for=" option in filteredOptions " :value="option.value">{{ option.label }}</option>
+            </select>
+
+            <select v-else name="" id="" v-model="value">
+                <option v-for=" option in field.options " :value="option.value">{{ option.label }}</option>
+            </select>
+
+            <div v-if="field.buttonAdd">
+
+                <button type="button" @click="addItemStatus = !addItemStatus">
+                    {{ addItemStatus ? 'Hide' : 'Add' }} new {{ field.label }}
+                </button>
+                <div v-if="addItemStatus">
+                
+                    <Form 
+                        :model="field.relation"
+                        @set-data="setRelationData(field.relation)"
+                    />
+                    <button type="button" @click="persistNewRelation">Push in {{ field.label }}</button>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </template>

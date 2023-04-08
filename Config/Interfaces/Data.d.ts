@@ -1,3 +1,3 @@
 interface Data {
-    [ key : string ] : object
+    [ key : string ] : Property
 }
