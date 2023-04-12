@@ -11,7 +11,7 @@ VUE.js package for creating an MVC Front-End architecture using a strategy patte
 
 
 ## Install
-//...
+git clone https://github.com/7rancesco/VUE.JS-MVC-Strategy-Package.git MVCS
 
 ## Configurations
 
