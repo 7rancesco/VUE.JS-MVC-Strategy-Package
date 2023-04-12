@@ -82,11 +82,7 @@
     <div v-else>
 
         <!--HEADER-->
-        <div style="background-color: black; text-align:center; color:white; margin-bottom:-10px; z-index: -1;">
-            <h1>MVCS</h1>
-        </div>
-
-        <div class="d-flex" style="background-color: black; padding: 10px 5px 10px 5px; margin-bottom:30px;">
+        <div style="background-color: black; padding: 10px 5px 10px 5px; margin-bottom:30px; display: flex; opacity: 0.8;">
 
 
             <div v-for="group in navDropdowns">
@@ -109,7 +105,7 @@
 
                 <button 
                     class="btn" 
-                    :class="current === model ? 'btn-outline-light' : 'btn-outline-success'"
+                    :class="current === model ? 'btn-light' : 'btn-success'"
                     @click="current = model; showDropdown = '';"
                 > {{ model }}s </button>
 
