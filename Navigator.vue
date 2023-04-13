@@ -82,20 +82,20 @@
     <div v-else>
 
         <!--HEADER-->
-        <div style="background-color: black; padding: 10px 5px 10px 5px; margin-bottom:30px; display: flex; opacity: 0.8;">
+        <div style="background-color: rgba(0, 0, 0, 0.28); padding: 10px 5px 10px 5px; border-radius: 3px; margin-bottom:30px; display: flex; opacity: 0.8;">
 
 
             <div v-for="group in navDropdowns">
-                <button class="btn btn-success" type="button" @click="showDropdown = showDropdown === group.label ? '' : group.label">
+                <button class="btn btn-light" type="button" @click="showDropdown = showDropdown === group.label ? '' : group.label">
                     {{ group.label }} {{ showDropdown === group.label ? ' x' : ' v' }}
-                    <span style="text-decoration: underline;">
+                    <span style="text-decoration: underline;" class="btn-success">
                         {{ View[current ? current : ''].group === group.label ? current : '' }}
                     </span>
                 </button>
-                <div v-if="showDropdown === group.label" style="margin-top:10px; padding: 3px; border: solid 1px green;">
+                <div v-if="showDropdown === group.label" style="margin-top:10px; padding: 3px; border-top: solid 1px aqua;">
                     <button v-for="model in group.elements"
                         class="btn" 
-                        :class="current === model ? 'btn-outline-light' : 'btn-outline-success'"
+                        :class="current === model ? 'btn-success' : 'btn-light'"
                         @click="current = model; showDropdown = '';"
                     > {{ model }}s </button>                     
                 </div>                   
@@ -105,7 +105,7 @@
 
                 <button 
                     class="btn" 
-                    :class="current === model ? 'btn-light' : 'btn-success'"
+                    :class="current === model ? 'btn-success' : 'btn-light'"
                     @click="current = model; showDropdown = '';"
                 > {{ model }}s </button>
 

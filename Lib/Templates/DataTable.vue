@@ -7,7 +7,7 @@
 
     <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid black;">
+        <div style="border-bottom: 1px solid black; display: flex; justify-content: space-between;">
             <h2>{{ title }}s</h2>
             <button class="btn btn-success" @click="emits('showForm')">+</button>
         </div>
