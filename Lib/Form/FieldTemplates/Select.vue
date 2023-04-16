@@ -72,20 +72,26 @@
         newRelation.value = data;
     }
 
-    function persistNewRelation(){
+    async function emitDataRelation(){
         emits('setNewRelation', props.field.entity, newRelation.value)
-        //Promise
-        setTimeout(() => {
-            const lastInsert = filteredOptions.value[filteredOptions.value.length - 1];
-            const isEmpty = values.value?.length === 0;
-            if(isEmpty){
-                values.value = [lastInsert.value];
-            } else {
-                let array = values.value;
-                values.value = [...array, lastInsert.value];
-            }
-        }, 1000);
+    }
+
+    function pushNewPropDataRelation(){
+        const lastInsert = filteredOptions.value[filteredOptions.value.length - 1];
+        const isEmpty = values.value?.length === 0;
+        if(isEmpty){
+            values.value = [lastInsert.value];
+        } else {
+            let array = values.value;
+            values.value = [...array, lastInsert.value];
+        }
+    }
+
+    function persistNewRelation(){
         addItemStatus.value = false;
+        emitDataRelation().then(
+            function(){pushNewPropDataRelation()}
+        )
     }
 
     const collectionIndex = ref<number>(0);

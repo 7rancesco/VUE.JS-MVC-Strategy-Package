@@ -42,27 +42,38 @@
         emits('setData', data);
     }
 
-    function submit( e : Event ){
-        e.preventDefault();
+    async function submitData(){
         if(currentId.value === null){
             emits('persist')
         } else {
             emits('update', currentId.value)
         }
+    }
+
+    async function submitRemoveData(){
+        emits('remove', currentId.value );
+    }
+
+    function submit( e : Event ){
+        e.preventDefault();
+        // if(currentId.value === null){
+        //     emits('persist')
+        // } else {
+        //     emits('update', currentId.value)
+        // }
         //Promise
-        setTimeout(() => {
-            setIndex()
-        }, 2000);
+        submitData().then(
+            function(){setIndex()}
+        )
     }
     
     function remove(){
         const conf = confirm('Sei sicuro di voler rimuovere ' + props.title + ' id ' + currentId.value + ' definitivamente?');
         if(conf)
-        emits('remove', currentId.value );
-        //Promise
-        setTimeout(() => {
-            setIndex()
-        }, 2000);
+        //emits('remove', currentId.value );
+        submitRemoveData().then(
+            function(){setIndex()}
+        )
     }
 
 

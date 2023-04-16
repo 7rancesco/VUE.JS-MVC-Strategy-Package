@@ -87,17 +87,19 @@
 
             <div v-for="group in navDropdowns">
                 <button class="btn btn-light" type="button" @click="showDropdown = showDropdown === group.label ? '' : group.label">
-                    {{ group.label }} {{ showDropdown === group.label ? ' x' : ' v' }}
+                    {{ group.label }} {{ showDropdown === group.label ? ' x' : ' >' }}
                     <span style="text-decoration: underline;" class="btn-success">
                         {{ View[current ? current : ''].group === group.label ? current : '' }}
                     </span>
                 </button>
-                <div v-if="showDropdown === group.label" style="margin-top:10px; padding: 3px; border-top: solid 1px aqua;">
-                    <button v-for="model in group.elements"
-                        class="btn" 
-                        :class="current === model ? 'btn-success' : 'btn-light'"
-                        @click="current = model; showDropdown = '';"
-                    > {{ model }}s </button>                     
+                <div v-if="showDropdown === group.label" style="margin-top: 0px; padding: 3px; padding-top: 30px; border-top: solid 1px aqua; background-color: black;">
+                    <div v-for="model in group.elements" style="text-align: center;">
+                        <button
+                            class="btn"
+                            :class="current === model ? 'btn-success' : 'btn-light'"
+                            @click="current = model; showDropdown = '';"
+                        > {{ model }}s </button>  
+                    </div>
                 </div>                   
             </div>
 

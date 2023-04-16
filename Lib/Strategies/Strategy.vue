@@ -67,7 +67,17 @@
 
     function setNewRelation(entity:string, mod: Model[]){
         Storage( entity ).setDatas( mod )
-        model.value = ModelStrategy( props.schema );
+
+        if(model.value){
+            const currentModel : Model[] = model.value;
+            model.value = ModelStrategy( props.schema );
+            model.value?.forEach(element => {
+                const property = currentModel.find(e => e.propertyName === element.propertyName);
+                if(property){
+                    element['value'] = property.value;
+                }
+            });
+        }
     }
 
 </script>
