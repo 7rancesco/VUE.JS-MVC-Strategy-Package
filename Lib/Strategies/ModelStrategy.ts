@@ -59,6 +59,7 @@ export const ModelStrategy = ( schema : Schema ) => {
                         if(schema.allModels){
                             const entityName = model[key]['entity'];
                             if(entityName){
+                                property['entity'] = entityName;
                                 const relation = schema.allModels[entityName];
                                 const s = {...schema};
                                 s.model = relation;
@@ -74,6 +75,7 @@ export const ModelStrategy = ( schema : Schema ) => {
                 if(schema.allModels){
                     const entityName = model[key]['entity'];
                     if(entityName){
+                        property['entity'] = entityName;
                         const relation = schema.allModels[entityName];
                         const s = {...schema};
                         s.model = relation;

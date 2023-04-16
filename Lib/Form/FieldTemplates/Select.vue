@@ -4,11 +4,11 @@
     import Form from '../Form.vue';
 
     const props = defineProps(['field'])
-    const emits = defineEmits(['setData'])
+    const emits = defineEmits(['setData', 'setNewRelation'])
 
     const data = ref<Property>(props.field);
     const value = ref< number | string >();
-    const values = ref< number[] | string[] >();
+    const values = ref< (number | string)[] >([]);
 
     function setData(){
         data.value.value = value.value;
@@ -73,8 +73,19 @@
     }
 
     function persistNewRelation(){
-        console.log(newRelation.value)
-        alert('See the console')
+        emits('setNewRelation', props.field.entity, newRelation.value)
+        //Promise
+        setTimeout(() => {
+            const lastInsert = filteredOptions.value[filteredOptions.value.length - 1];
+            const isEmpty = values.value?.length === 0;
+            if(isEmpty){
+                values.value = [lastInsert.value];
+            } else {
+                let array = values.value;
+                values.value = [...array, lastInsert.value];
+            }
+        }, 1000);
+        addItemStatus.value = false;
     }
 
     const collectionIndex = ref<number>(0);
@@ -124,7 +135,7 @@
             <div v-if="field.buttonAdd">
 
                 <button type="button" @click="addItemStatus = !addItemStatus">
-                    {{ addItemStatus ? 'Hide' : 'Add' }} new {{ field.label }}
+                    {{ addItemStatus ? ' - Hide' : ' + Add' }} new {{ field.label }}
                 </button>
                 <div v-if="addItemStatus">
                 

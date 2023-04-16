@@ -9,7 +9,7 @@
     const props = defineProps(['schema']);
 
     /**+++++++++++++++++++++++++++++++**/
-    const showProfiler = ref(false); /**/
+    const showProfiler = ref(true); /**/
     /**+++++++++++++++++++++++++++++**/
 
     const model = ref<Model[]>();
@@ -65,6 +65,11 @@
         }
     }
 
+    function setNewRelation(entity:string, mod: Model[]){
+        Storage( entity ).setDatas( mod )
+        model.value = ModelStrategy( props.schema );
+    }
+
 </script>
 
 <template>
@@ -88,6 +93,7 @@
         @persist="persist"
         @update="update"
         @remove="remove"
+        @set-new-relation="setNewRelation"
     />
     
 </template>

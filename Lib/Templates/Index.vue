@@ -19,15 +19,24 @@
     }
 
     watch(
-        () => props.model,
+        () => props.title,
         () => setIndex()
+    )
+
+    function refreshModel(){
+        mdl.value = props.model
+    }
+
+    watch(
+        () => props.model,
+        () => refreshModel()
     )
 
     const strg = ref(props.storage);
     const mdl = ref(props.model);
     const template = ref<string>();
 
-    const emits = defineEmits(['setData', 'persist', 'update', 'remove']);
+    const emits = defineEmits(['setData', 'persist', 'update', 'remove', 'setNewRelation']);
 
     function setData( data : Property ){
         emits('setData', data);
@@ -40,12 +49,20 @@
         } else {
             emits('update', currentId.value)
         }
+        //Promise
+        setTimeout(() => {
+            setIndex()
+        }, 2000);
     }
     
     function remove(){
         const conf = confirm('Sei sicuro di voler rimuovere ' + props.title + ' id ' + currentId.value + ' definitivamente?');
         if(conf)
         emits('remove', currentId.value );
+        //Promise
+        setTimeout(() => {
+            setIndex()
+        }, 2000);
     }
 
 
@@ -84,6 +101,10 @@
     }
     const currentId = ref<number | null>(0);
 
+    function setNewRelation(entity:string, mod: Model[]){
+        emits('setNewRelation', entity, mod)
+    }
+
     
 </script>
 
@@ -113,6 +134,7 @@
             <Data 
                 :model="mdl"
                 @set-data="setData"
+                @set-new-relation="setNewRelation"
             />
 
             <button type="submit">Save</button>

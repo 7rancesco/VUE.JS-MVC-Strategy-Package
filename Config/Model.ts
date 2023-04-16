@@ -1,15 +1,10 @@
 export const Model : Models = {
     "Materia" : {
-        "name" : {},
+        "name" : {}      
     },
     "Student" : {
         "name" : {},
-        "surname" : {},
-        "materie" : {
-            type : "choice",
-            entity : "Materia",
-            collection : true
-        }
+        "surname" : {}
     },
     "Teacher" : {
         "name" : {},
@@ -31,6 +26,11 @@ export const Model : Models = {
             multiple : true,
             search : true,
             buttonAdd : true
-        }
+        },
+        // "materie" : {
+        //     type : "choice",
+        //     entity : "Materia",
+        //     collection : true
+        // }
     },
 }
