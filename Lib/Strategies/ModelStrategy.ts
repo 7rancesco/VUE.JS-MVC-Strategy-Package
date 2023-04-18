@@ -79,7 +79,7 @@ export const ModelStrategy = ( schema : Schema ) => {
                         const relation = schema.allModels[entityName];
                         const s = {...schema};
                         s.model = relation;
-                        property['relation'] = ModelStrategy(s);
+                        property['relation'] = [ModelStrategy(s)];
                         property['collection'] = true;
                     }
                 }

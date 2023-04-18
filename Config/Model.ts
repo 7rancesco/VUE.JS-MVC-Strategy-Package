@@ -27,10 +27,10 @@ export const Model : Models = {
             search : true,
             buttonAdd : true
         },
-        // "materie" : {
-        //     type : "choice",
-        //     entity : "Materia",
-        //     collection : true
-        // }
+        "materie" : {
+            type : "choice",
+            entity : "Materia",
+            collection : true
+        }
     },
 }

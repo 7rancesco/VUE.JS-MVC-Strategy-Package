@@ -36,7 +36,7 @@
     const mdl = ref(props.model);
     const template = ref<string>();
 
-    const emits = defineEmits(['setData', 'persist', 'update', 'remove', 'setNewRelation']);
+    const emits = defineEmits(['setData', 'persist', 'update', 'remove', 'setNewRelation', 'collectionInc', 'collectionDec']);
 
     function setData( data : Property ){
         emits('setData', data);
@@ -56,12 +56,6 @@
 
     function submit( e : Event ){
         e.preventDefault();
-        // if(currentId.value === null){
-        //     emits('persist')
-        // } else {
-        //     emits('update', currentId.value)
-        // }
-        //Promise
         submitData().then(
             function(){setIndex()}
         )
@@ -70,7 +64,6 @@
     function remove(){
         const conf = confirm('Sei sicuro di voler rimuovere ' + props.title + ' id ' + currentId.value + ' definitivamente?');
         if(conf)
-        //emits('remove', currentId.value );
         submitRemoveData().then(
             function(){setIndex()}
         )
@@ -116,6 +109,15 @@
         emits('setNewRelation', entity, mod)
     }
 
+    function collectionInc(property:string){
+        emits('collectionInc', property)
+    }
+
+    function collectionDec(property:string, index : number){
+        emits('collectionDec', property, index)
+    }
+
+
     
 </script>
 
@@ -146,6 +148,8 @@
                 :model="mdl"
                 @set-data="setData"
                 @set-new-relation="setNewRelation"
+                @collection-inc="collectionInc"
+                @collection-dec="collectionDec"
             />
 
             <button type="submit">Save</button>

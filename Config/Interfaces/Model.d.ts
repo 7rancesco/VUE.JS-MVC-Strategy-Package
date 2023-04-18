@@ -14,6 +14,8 @@ interface Property {
 
 
 interface Model {
+    relation?: object[];
+    value?:any;
     [ key : string ] : Property;
 }
 

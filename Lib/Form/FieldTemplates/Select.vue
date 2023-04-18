@@ -4,7 +4,7 @@
     import Form from '../Form.vue';
 
     const props = defineProps(['field'])
-    const emits = defineEmits(['setData', 'setNewRelation'])
+    const emits = defineEmits(['setData', 'setNewRelation', 'collectionInc', 'collectionDec'])
 
     const data = ref<Property>(props.field);
     const value = ref< number | string >();
@@ -76,6 +76,8 @@
         emits('setNewRelation', props.field.entity, newRelation.value)
     }
 
+    const addItemStatus = ref<boolean>(false);
+
     function pushNewPropDataRelation(){
         const lastInsert = filteredOptions.value[filteredOptions.value.length - 1];
         const isEmpty = values.value?.length === 0;
@@ -94,15 +96,9 @@
         )
     }
 
-    const collectionIndex = ref<number>(0);
-    function collectionInc(){
-        collectionIndex.value++;
-    }
-    function collectionDec(){
-        collectionIndex.value--;
-    }
+    function setCollectionData(){
 
-    const addItemStatus = ref<boolean>(false);
+    }
 
 </script>
 
@@ -110,15 +106,20 @@
     <div>
 
         <div v-if="field.collection">
+
             Collection of {{ field.label }} <br>
-            <div v-for="i in collectionIndex">
-                {{ i }}° - {{ field.label }} <button type="button" @click="collectionDec">x</button>
-                <Form 
-                    :model="field.relation"
-                    @set-data="setRelationData(field.relation)"
-                />
+            <div v-for="i, index in field.relation">
+                <div v-if="i">
+                
+                    Item {{ index + 1 }} of {{ field.label }} <button type="button" @click="emits('collectionDec', field.propertyName, index )">x</button>
+                    <Form 
+                        :model="i"
+                        @set-data="setCollectionData"
+                    />
+
+                </div>    
             </div>
-            <button type="button" @click="collectionInc">Add {{ field.label }}</button>
+            <button type="button" @click="emits('collectionInc', field.propertyName )">Add {{ field.label }}</button>
         </div>
         
         <div v-else>

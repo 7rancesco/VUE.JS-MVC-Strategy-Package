@@ -45,7 +45,26 @@
 
     function persist(){
         if(model.value){
-            Storage( props.schema.name ).setDatas( model.value )
+            const isCollection = model.value.find(e => e.relation);
+            if(isCollection){
+                model.value.forEach(e => {
+                    if( e.relation && e.collection ){
+                        let values : number[] = [];
+                        e.relation.forEach(r => {
+                            if(r){
+                                Storage( e.entity as unknown as string ).setDatas( r as Model[])
+                                const id = localStorage.getItem('MVCS_ID');
+                                if(id)
+                                values.push(parseInt(id))
+                            }
+                        });
+                        e.value = values;
+                    }
+                });
+                Storage( props.schema.name ).setDatas( model.value )
+            } else {
+                Storage( props.schema.name ).setDatas( model.value )
+            }
             setSchema()
         }
 
@@ -75,9 +94,41 @@
                 const property = currentModel.find(e => e.propertyName === element.propertyName);
                 if(property){
                     element['value'] = property.value;
+                    element['relation'] = property.relation;
                 }
             });
         }
+    }
+
+    function collectionInc(propertyName : string){
+        model.value?.forEach(element => {
+            const property = element['propertyName'] as unknown as string;
+            const entity = element['entity'] as unknown as string;
+            if(entity && property === propertyName ){
+                const relation = props.schema.allModels[entity];
+                const s = {...props.schema};
+                s.model = relation;
+                const n = ModelStrategy(s);
+                if(n)
+                element['relation']?.push(n)
+            }
+        });
+    }
+
+    function collectionDec(propertyName : string, index : number){
+        model.value?.forEach(element => {
+            const property = element['propertyName'] as unknown as string;
+            if(property === propertyName ){
+                const newElements = element['relation']?.map((e, i) => {
+                    if(i !== index){
+                        return e
+                    }
+                })
+                if(newElements !== undefined){
+                    element['relation'] = newElements as object[];
+                }
+            }
+        });
     }
 
 </script>
@@ -104,6 +155,8 @@
         @update="update"
         @remove="remove"
         @set-new-relation="setNewRelation"
+        @collection-inc="collectionInc"
+        @collection-dec="collectionDec"
     />
     
 </template>
