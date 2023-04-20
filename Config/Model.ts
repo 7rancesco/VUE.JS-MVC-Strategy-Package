@@ -1,6 +1,13 @@
 export const Model : Models = {
     "Materia" : {
-        "name" : {}      
+        "name" : {},  
+        "refer" : {
+            type : "select",
+            options : [
+                {value : 'A', label : 'A' },
+                {value : 'B', label : 'B' }
+            ] 
+        }
     },
     "Student" : {
         "name" : {},
@@ -30,7 +37,8 @@ export const Model : Models = {
         "materie" : {
             type : "choice",
             entity : "Materia",
-            collection : true
+            collection : true,
+            to_String : ['name']
         }
     },
 }

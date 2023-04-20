@@ -2,7 +2,7 @@
     import Form from './Form.vue';
     const props = defineProps(['model'])
 
-    const emits = defineEmits(['setData', 'setNewRelation', 'collectionInc', 'collectionDec']);
+    const emits = defineEmits(['setData', 'setNewRelation', 'collectionInc', 'collectionDec', 'editCollection']);
     function setData( data : Property ){
         emits('setData', data);
     }
@@ -19,6 +19,9 @@
         emits('collectionDec', property, index)
     }
 
+    function editCollectionData(data : Property, index : string){
+        emits('editCollection', data, index)
+    } 
 
 </script>
 
@@ -30,6 +33,7 @@
         @set-new-relation="setNewRelation"
         @collection-inc="collectionInc"
         @collection-dec="collectionDec"
+        @edit-collection="editCollectionData"
     />
     
 </template>

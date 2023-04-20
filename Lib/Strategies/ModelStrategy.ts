@@ -81,6 +81,23 @@ export const ModelStrategy = ( schema : Schema ) => {
                         s.model = relation;
                         property['relation'] = [ModelStrategy(s)];
                         property['collection'] = true;
+
+                        const choices = Storage(entityName).getDatas();
+                        let dataCollection : Model[] = [];
+                        choices.forEach((element : {[key : string] : any}) => {
+                            let label : string = '';
+                            const toString = model[key]['to_String'];
+                            if( toString ){
+                                toString.forEach(lbl => {
+                                    label += element[lbl] + ' ';
+                                });
+                            } else {
+                                label = 'label missing'
+                            }
+    
+                            dataCollection.push(element)
+                        });   
+                        property['dataCollection'] = dataCollection;                     
                     }
                 }
             }

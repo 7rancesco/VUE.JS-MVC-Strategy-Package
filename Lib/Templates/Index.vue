@@ -36,7 +36,7 @@
     const mdl = ref(props.model);
     const template = ref<string>();
 
-    const emits = defineEmits(['setData', 'persist', 'update', 'remove', 'setNewRelation', 'collectionInc', 'collectionDec']);
+    const emits = defineEmits(['setData', 'persist', 'update', 'remove', 'setNewRelation', 'collectionInc', 'collectionDec', 'editCollection']);
 
     function setData( data : Property ){
         emits('setData', data);
@@ -77,9 +77,12 @@
     function showIndex(){
         currentId.value = null;
         if(props.model){
-            props.model.forEach((element: Property) => {
+            props.model.forEach((element: Property | any) => {
                 element.value = null;
                 setData( element )
+                if(element['collection']){
+                    element['relation'] = [element['relation'][0]];
+                }
             });
         }      
 
@@ -117,6 +120,10 @@
         emits('collectionDec', property, index)
     }
 
+    function editCollectionData(data : Property, index : string){
+        emits('editCollection', data, index)
+    }     
+
 
     
 </script>
@@ -150,6 +157,7 @@
                 @set-new-relation="setNewRelation"
                 @collection-inc="collectionInc"
                 @collection-dec="collectionDec"
+                @edit-collection="editCollectionData"
             />
 
             <button type="submit">Save</button>

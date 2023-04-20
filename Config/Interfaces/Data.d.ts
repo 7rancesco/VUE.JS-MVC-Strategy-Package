@@ -1,3 +1,3 @@
 interface Data {
-    [ key : string ] : Property
+    [ key : string ] : any | any[];
 }

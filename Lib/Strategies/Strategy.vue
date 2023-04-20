@@ -38,6 +38,28 @@
     function setData( data : Data ){
         model.value?.map( ( e : Data ) => {
             if( e.propertyName === data.propertyName ){
+                if(e.collection && e.value !== null){
+                    let editCollection : Model[][] = [];
+
+                    for (let index = 0; index < e.value.length; index++) {
+                        let editProperty : Model[] = [];
+                        const v = e.value[index];
+                        const val = e.dataCollection?.find((e : {id:number}) => e.id === v);
+                        e.relation.forEach((element : {[key : string] : any}) => {
+                            element.forEach((inElement : {[key : string] : any}) => {
+                                const editProp : {[key : string] : any} = {};
+                                Object.keys(inElement).forEach(s  => {
+                                    editProp[s] = inElement[s];
+                                });
+                                editProp['value'] = val[editProp['propertyName']];
+                                editProp['id'] = v;
+                                editProperty.push(editProp);
+                            });
+                        });
+                        editCollection.push(editProperty)
+                    }
+                    e['editCollection'] = editCollection;
+                }
                 return e.value = data.value
             }
         })
@@ -73,6 +95,16 @@
     function update( id : number ){
         if(model.value){
             Storage( props.schema.name ).updateDatas( model.value, id )
+            model.value?.forEach(element => {
+                if(element['editCollection']){
+                    const array : Data[] = element['editCollection'] as Data[];
+                    array.forEach(coll => {
+                        console.log(element['entity'])
+                        console.log(coll)
+                        Storage( element['entity'] as unknown as string ).updateDatas( coll as Model[], coll[0].id )
+                    });
+                }
+            });
             setSchema()
         }
     }
@@ -131,6 +163,20 @@
         });
     }
 
+    function editCollectionData(data : Data, index : string){
+        model.value?.forEach(element => {
+            if(element['propertyName'] as unknown as string === index){
+                const array : Data[] = element['editCollection'] as Data[];
+                const objs = array.map(e => {
+                    let obj = e.find((i : {id : number}) => i.id === data.id);
+                    if(obj){
+                        obj['value'] = data.value;
+                    }
+                })
+            }
+        });
+    }     
+
 </script>
 
 <template>
@@ -157,6 +203,7 @@
         @set-new-relation="setNewRelation"
         @collection-inc="collectionInc"
         @collection-dec="collectionDec"
+        @edit-collection="editCollectionData"
     />
     
 </template>

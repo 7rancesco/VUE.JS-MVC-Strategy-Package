@@ -4,7 +4,7 @@
     import Form from '../Form.vue';
 
     const props = defineProps(['field'])
-    const emits = defineEmits(['setData', 'setNewRelation', 'collectionInc', 'collectionDec'])
+    const emits = defineEmits(['setData', 'setNewRelation', 'collectionInc', 'collectionDec', 'editCollection'])
 
     const data = ref<Property>(props.field);
     const value = ref< number | string >();
@@ -100,26 +100,44 @@
 
     }
 
+    function editCollectionData(data : Property){
+        emits('editCollection', data, props.field.propertyName)
+    }
+
 </script>
 
 <template>
     <div>
 
         <div v-if="field.collection">
-
             Collection of {{ field.label }} <br>
-            <div v-for="i, index in field.relation">
-                <div v-if="i">
-                
-                    Item {{ index + 1 }} of {{ field.label }} <button type="button" @click="emits('collectionDec', field.propertyName, index )">x</button>
-                    <Form 
-                        :model="i"
-                        @set-data="setCollectionData"
-                    />
+            <div v-if="field.value">
+                <div v-for="i, index in field.editCollection">
+                    <div v-if="i">
+                        Item id: {{ i[0].id }} / {{ field.label }} <button type="button" @click="emits('collectionDec', field.propertyName, index )">x</button>
+                        <Form 
+                            :model="i"
+                            @set-data="editCollectionData"
+                        />
 
-                </div>    
+                    </div>    
+                </div>
+                <button type="button" @click="emits('collectionInc', field.propertyName )">+ Add {{ field.label }}</button>
             </div>
-            <button type="button" @click="emits('collectionInc', field.propertyName )">Add {{ field.label }}</button>
+            <div v-else>                
+                <div v-for="i, index in field.relation">
+                    <div v-if="i">
+                    
+                        Item {{ index + 1 }} of {{ field.label }} <button type="button" @click="emits('collectionDec', field.propertyName, index )">x</button>
+                        <Form 
+                            :model="i"
+                            @set-data="setCollectionData"
+                        />
+
+                    </div>    
+                </div>
+                <button type="button" @click="emits('collectionInc', field.propertyName )">Add {{ field.label }}</button>
+            </div>                
         </div>
         
         <div v-else>
